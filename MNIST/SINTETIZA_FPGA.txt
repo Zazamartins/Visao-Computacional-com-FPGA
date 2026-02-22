@@ -1,0 +1,4 @@
+yosys -p "read_verilog camera_get_pic.v seven_segment_decoder.v ghost_writer.v camera_init.v camera_top.v framebuffer.v image_preprocessor.v mnist_classifier.v mnist_ram.v  reg_init.v sccb_sender.v top_module.v vga_control.v vga_upscaler.v; synth_ecp5 -json out.json -abc9"
+nextpnr-ecp5 --json out.json --lpf top_module.lpf --textcfg out.config --package CABGA381 --45k --speed 6
+ecppack --compress --input out.config --bit out.bit 
+openFPGALoader -b colorlight-i9 out.bit

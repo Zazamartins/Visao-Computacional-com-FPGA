@@ -1,0 +1,106 @@
+# ===================================================================
+# ARQUIVO DE RESTRIÇÕES (LPF) - PROJETO CÂMERA OV2640
+# PLACA: COLORLIGHT I9 (LFE5U-45F)
+# ===================================================================
+
+# -------------------------------------------------------------------
+# CLOCK E RESET (Definidos por você)
+# -------------------------------------------------------------------
+LOCATE COMP "clk" SITE "P3";
+IOBUFFER PORT "clk" IO_TYPE = LVCMOS33;
+FREQUENCY PORT "clk" 25.0 MHz;
+
+LOCATE COMP "rst_n" SITE "E5"; # botão reset BAIXO
+IOBUFFER PORT "rst_n" IO_TYPE = LVCMOS33;
+
+# -------------------------------------------------------------------
+# SAÍDA VGA (Definidos por você)
+# -------------------------------------------------------------------
+# VGAHS
+LOCATE COMP "VGAHS" SITE "J20"; # SINCRONISMO HORIZONTAL
+IOBUFFER PORT "VGAHS" IO_TYPE = LVCMOS33 PULLMODE=NONE SLEWRATE=SLOW DRIVE=8;
+
+# VGAVS
+LOCATE COMP "VGAVS" SITE "G20"; # SINCRONISMO VERTICAL
+IOBUFFER PORT "VGAVS" IO_TYPE = LVCMOS33 PULLMODE=NONE SLEWRATE=SLOW DRIVE=8;
+
+# VGA_R
+LOCATE COMP "VGA_R[2]" SITE "M18"; # RED[2]
+IOBUFFER PORT "VGA_R[2]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+LOCATE COMP "VGA_R[1]" SITE "N17"; # RED[1]
+IOBUFFER PORT "VGA_R[1]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+LOCATE COMP "VGA_R[0]" SITE "U17"; # RED[0]
+IOBUFFER PORT "VGA_R[0]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+
+# VGA_G
+LOCATE COMP "VGA_G[2]" SITE "K20"; # GREEN[2]
+IOBUFFER PORT "VGA_G[2]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+LOCATE COMP "VGA_G[1]" SITE "L20"; # GREEN[1]
+IOBUFFER PORT "VGA_G[1]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+LOCATE COMP "VGA_G[0]" SITE "L18"; # GREEN[0]
+IOBUFFER PORT "VGA_G[0]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+
+# VGA_B
+LOCATE COMP "VGA_B[2]" SITE "N18"; # BLUE[2]
+IOBUFFER PORT "VGA_B[2]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+LOCATE COMP "VGA_B[1]" SITE "P18"; # BLUE[1]
+IOBUFFER PORT "VGA_B[1]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+LOCATE COMP "VGA_B[0]" SITE "U18"; # BLUE[0]
+IOBUFFER PORT "VGA_B[0]" IO_TYPE = LVCMOS33 SLEWRATE=SLOW DRIVE=8;
+
+# -------------------------------------------------------------------
+# PINOS DA CÂMERA OV2640 (Conector J19)
+# -------------------------------------------------------------------
+
+# Clock do Pixel (Entrada para o FPGA)
+LOCATE COMP "dclk" SITE "D17";  # J19 - PINO 4
+IOBUFFER PORT "dclk" IO_TYPE = LVCMOS33;
+
+# Sincronismo (Entrada para o FPGA)
+LOCATE COMP "vsync" SITE "E17"; # J19 - PINO 5
+IOBUFFER PORT "vsync" IO_TYPE = LVCMOS33;
+LOCATE COMP "href" SITE "F17";  # J19 - PINO 6
+IOBUFFER PORT "href" IO_TYPE = LVCMOS33;
+
+# Barramento de Dados (Entrada para o FPGA)
+LOCATE COMP "data[0]" SITE "E6"; # J19 - PINO 11
+IOBUFFER PORT "data[0]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[1]" SITE "G16"; # J19 - PINO 12
+IOBUFFER PORT "data[1]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[2]" SITE "G5"; # J19 - PINO 13
+IOBUFFER PORT "data[2]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[3]" SITE "E18"; # J19 - PINO 14
+IOBUFFER PORT "data[3]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[4]" SITE "D16"; # J19 - PINO 15
+IOBUFFER PORT "data[4]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[5]" SITE "H16"; # J19 - PINO 16
+IOBUFFER PORT "data[5]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[6]" SITE "D18"; # J19 - PINO 17
+IOBUFFER PORT "data[6]" IO_TYPE = LVCMOS33;
+LOCATE COMP "data[7]" SITE "F18"; # J19 - PINO 18
+IOBUFFER PORT "data[7]" IO_TYPE = LVCMOS33;
+
+# Controle SCCB (I2C)
+LOCATE COMP "scio_c" SITE "F4"; # J19 - PINO 8 (SCL)
+IOBUFFER PORT "scio_c" IO_TYPE = LVCMOS33;
+
+LOCATE COMP "scio_d" SITE "F5"; # J19 - PINO 7 (SDA)
+# PULLMODE=UP é CRÍTICO para a linha de dados I2C/SCCB
+IOBUFFER PORT "scio_d" IO_TYPE = LVCMOS33 PULLMODE=UP; 
+
+# Controle de Energia da Câmera (Saída do FPGA)
+LOCATE COMP "reset" SITE "F16"; # J19 - PINO 9
+IOBUFFER PORT "reset" IO_TYPE = LVCMOS33;
+
+LOCATE COMP "pwdn" SITE "E16";  # J19 - PINO 10
+IOBUFFER PORT "pwdn" IO_TYPE = LVCMOS33;
+
+# LEDS PARA DEBUG
+LOCATE COMP "led_vermelho" SITE "T1"; 
+IOBUFFER PORT "led_vermelho" IO_TYPE = LVCMOS33;
+
+LOCATE COMP "led_verde" SITE "Y2"; 
+IOBUFFER PORT "led_verde" IO_TYPE = LVCMOS33;
+
+LOCATE COMP "led_azul" SITE "V1"; 
+IOBUFFER PORT "led_azul" IO_TYPE = LVCMOS33;
